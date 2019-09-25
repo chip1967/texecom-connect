@@ -1,0 +1,15 @@
+[Unit]
+Description=Texecom Connect
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/texecom-connect/config
+ExecStart=/usr/bin/python2 alarm-monitor.py
+WorkingDirectory=/var/lib/texecom-connect
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
