@@ -8,6 +8,7 @@ ExecStart=/usr/bin/python2 alarm-monitor.py
 WorkingDirectory=/var/lib/texecom-connect
 StandardOutput=inherit
 StandardError=inherit
+RestartSec=30
 Restart=always
 User=pi
 
