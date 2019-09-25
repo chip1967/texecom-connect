@@ -503,7 +503,7 @@ class TexecomConnect(object):
         response = self.sendcommand(self.CMD_LOGIN, self.udlpassword)
         if response is None:
             self.log("sendcommand returned None for login")
-            return False
+            return True
         if response == self.CMD_RESPONSE_NAK:
             self.log("NAK response from panel")
             return False
