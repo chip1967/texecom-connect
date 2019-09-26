@@ -94,6 +94,9 @@ def message_handler(payload):
             areaname = "unknown"
         topic = "homeassistant/area/"+str.lower((areaname).replace(" ", "_"))+"/state"
         client.publish(topic, area_state)
+    else 
+        topic = "homeassistant/alarm/message"
+        client.publish(topic, text)
 
 
 # disable buffering to stdout when it's redirected to a file/pipe
