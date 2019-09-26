@@ -67,20 +67,33 @@ class TexecomConnectMqtt(TexecomConnect):
             client.publish(configtopic,json.dumps(message))
         return zone
 
+def publish_zone(zone):
+    topic = "homeassistant/binary_sensor/"+str.lower((zone.text).replace(" ", "_"))+"/state"
+    client.publish(topic,zone.state)
+
 def message_handler(payload):
-    tc.log(tc.decode_message_to_text(payload))
+    text = tc.decode_message_to_text(payload)
+    tc.log(text)
     msg_type, payload = payload[0], payload[1:]
     if msg_type == tc.MSG_ZONEEVENT:
         zone_number = ord(payload[0])
         zone_bitmap = ord(payload[1])
         zone = tc.get_zone(zone_number)
         zone.state = zone_bitmap & 0x3
-        topic = "homeassistant/binary_sensor/"+str.lower((zone.text).replace(" ", "_"))+"/state"
         if zone.state == 1:
             zone.active = True
         else:
             zone.active = False
-        client.publish(topic,zone.state)
+        publish_zone(zone)
+    elif msg_type == tc.MSG_AREAEVENT:
+        area_number = ord(payload[0])
+        area_state = ord(payload[1])
+        if area_number in self.area:
+            areaname = self.area[area_number].name
+        else:
+            areaname = "unknown"
+        topic = "homeassistant/area/"+str.lower((areaname).replace(" ", "_"))+"/state"
+        client.publish(topic, area_state)
 
 
 # disable buffering to stdout when it's redirected to a file/pipe
