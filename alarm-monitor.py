@@ -88,10 +88,6 @@ def message_handler(payload):
     elif msg_type == tc.MSG_AREAEVENT:
         area_number = ord(payload[0])
         area_state = ord(payload[1])
-        if area_number in self.area:
-            areaname = self.area[area_number].name
-        else:
-            areaname = "unknown"
         topic = "homeassistant/area/"+str.lower((areaname).replace(" ", "_"))+"/state"
         client.publish(topic, area_state)
     else:

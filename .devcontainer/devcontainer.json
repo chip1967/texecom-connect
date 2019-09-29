@@ -21,7 +21,7 @@
 		// new files getting created as root. See https://aka.ms/vscode-remote/containers/non-root-user
 		// for the needed Dockerfile updates and then uncomment the next line.
 		// "-u", "vscode"
-		[ "-v", "${env:HOME}/.ssh:/root/.ssh" ]
+		"-v", "${env:HOME}/.ssh:/root/.ssh"
 	],
 
 	// Use 'settings' to set *default* container specific settings.json values on container create. 
