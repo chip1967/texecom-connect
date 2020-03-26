@@ -10,7 +10,7 @@ StandardOutput=inherit
 StandardError=inherit
 RestartSec=30
 Restart=always
-User=pi
+User=openhabian
 
 [Install]
 WantedBy=multi-user.target
